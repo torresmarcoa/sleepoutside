@@ -6,7 +6,7 @@ function productDetailsTemplate(product) {
     NameWithoutBrand,
     Image,
     FinalPrice,
-    Colors: [ColorName],
+    Colors: [{ ColorName }],
     DescriptionHtmlSimple,
     Id,
   } = product;
