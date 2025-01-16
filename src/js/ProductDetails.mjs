@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, counterItems } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   const {
@@ -27,24 +27,35 @@ function productDetailsTemplate(product) {
     </div></section>`;
 }
 
+function counterCart(){
+  const items = counterItems("so-cart");
+  if (items > 0) {
+    document.querySelector("#counter-cart").innerText = items;
+  }
+}
+
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
-    this.product = {};
+    this.product = [];
     this.dataSource = dataSource;
   }
+
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails("main");
     document
-      .getElementById("addToCart")
-      .addEventListener("click", this.addToCart.bind(this));
+    .getElementById("addToCart")
+    .addEventListener("click", () => {
+      this.addToCart();
+      counterCart();
+    });
   }
+
   addToCart() {
-    const cart = getLocalStorage("so-cart");
-    cart.push(this.product);
-    setLocalStorage("so-cart", cart);
+    setLocalStorage("so-cart", this.product);
   }
+  
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     element.insertAdjacentHTML(
@@ -52,4 +63,7 @@ export default class ProductDetails {
       productDetailsTemplate(this.product),
     );
   }
+  
 }
+
+counterCart();
