@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, counterItems } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -16,6 +16,13 @@ function renderTotalCart(cartItems) {
     const cartTotalHTML = document.querySelector(".cart-total");
     cartTotalHTML.textContent += total;
     cartTotalHTML.parentNode.style.display = "unset";
+  }
+}
+
+function counterCart(){
+  const items = counterItems("so-cart");
+  if (items > 0) {
+    document.querySelector("#counter-cart").innerText = items;
   }
 }
 
@@ -39,3 +46,4 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+counterCart();
