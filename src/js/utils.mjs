@@ -34,7 +34,6 @@ export function getParams(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
-
 export function counterItems(key) {
   const items = JSON.parse(localStorage.getItem(key)) || [];
   return Array.isArray(items) ? items.length : 0;
