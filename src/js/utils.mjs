@@ -12,8 +12,14 @@ export function getLocalStorage(key) {
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
+  const existingData = JSON.parse(localStorage.getItem(key)) || [];
+  const updatedData = Array.isArray(existingData)
+    ? existingData
+    : [existingData];
+  updatedData.push(data);
+  localStorage.setItem(key, JSON.stringify(updatedData));
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -29,14 +35,21 @@ export function getParams(param) {
   return urlParams.get(param);
 }
 
+export function counterItems(key) {
+  const items = JSON.parse(localStorage.getItem(key)) || [];
+  return Array.isArray(items) ? items.length : 0;
+}
+
 export function renderListWithTemplate(
   templateFn,
   parentElement,
   list,
   position = "afterbegin",
-  clear = false,
+  clear,
 ) {
-  if (clear) parentElement.innerHTML = "";
-  const htmlStrings = list.map(templateFn);
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  const elements = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, elements.join(""));
 }
