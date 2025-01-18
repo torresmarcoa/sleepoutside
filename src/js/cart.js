@@ -15,7 +15,7 @@ function renderTotalCart(cartItems) {
       0,
     );
     const cartTotalHTML = document.querySelector(".cart-total");
-    cartTotalHTML.textContent += total;
+    cartTotalHTML.textContent += total.toFixed(2);
     cartTotalHTML.parentNode.style.display = "unset";
   }
 }
