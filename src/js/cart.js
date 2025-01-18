@@ -39,9 +39,7 @@ function renderTotalCart(cartItems) {
 
 function counterCart() {
   const items = counterItems("so-cart");
-  if (items > 0) {
-    document.querySelector("#counter-cart").innerText = items;
-  }
+  document.querySelector("#counter-cart").innerText = items;
 }
 
 function cartItemTemplate(item) {
