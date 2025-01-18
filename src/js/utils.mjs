@@ -13,7 +13,9 @@ export function getLocalStorage(key) {
 // save data to local storage
 export function setLocalStorage(key, data) {
   const existingData = JSON.parse(localStorage.getItem(key)) || [];
-  const updatedData = Array.isArray(existingData) ? existingData : [existingData];
+  const updatedData = Array.isArray(existingData)
+    ? existingData
+    : [existingData];
   const existingItemIndex = updatedData.findIndex(item => item.Id === data.Id);
 
   if (existingItemIndex !== -1) {
@@ -40,7 +42,21 @@ export function getParams(param) {
   return urlParams.get(param);
 }
 
-export function counterItems(key){
+export function counterItems(key) {
   const items = JSON.parse(localStorage.getItem(key)) || [];
   return Array.isArray(items) ? items.length : 0;
+}
+
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear,
+) {
+  const elements = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, elements.join(""));
 }

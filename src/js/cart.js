@@ -10,7 +10,8 @@ function renderCartContents() {
 function renderTotalCart(cartItems) {
   if (cartItems.length > 0) {
     const total = cartItems.reduce(
-      (totalCart, currentItem) => totalCart + currentItem.FinalPrice * currentItem.quantity,
+      (totalCart, currentItem) =>
+        totalCart + currentItem.FinalPrice * currentItem.quantity,
       0,
     );
     const cartTotalHTML = document.querySelector(".cart-total");
@@ -19,7 +20,7 @@ function renderTotalCart(cartItems) {
   }
 }
 
-function counterCart(){
+function counterCart() {
   const items = counterItems("so-cart");
   if (items > 0) {
     document.querySelector("#counter-cart").innerText = items;
