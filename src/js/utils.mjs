@@ -16,7 +16,14 @@ export function setLocalStorage(key, data) {
   const updatedData = Array.isArray(existingData)
     ? existingData
     : [existingData];
-  updatedData.push(data);
+  const existingItemIndex = updatedData.findIndex(item => item.Id === data.Id);
+
+  if (existingItemIndex !== -1) {
+    updatedData[existingItemIndex].quantity += data.quantity || 1;
+  } else {
+    updatedData.push({...data, quantity: data.quantity || 1});
+  }
+
   localStorage.setItem(key, JSON.stringify(updatedData));
 }
 
