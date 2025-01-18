@@ -5,6 +5,23 @@ function renderCartContents() {
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   renderTotalCart(cartItems);
+  if (cartItems.length > 0) addRemoveButton();
+}
+
+function addRemoveButton() {
+  const listElements = document.getElementsByClassName("cart-card");
+  for (const element of listElements) {
+    element.children[5].addEventListener("click", () => {removeCartItem(element.children[5])});
+  }
+}
+
+function removeCartItem(element) {
+  const cartItems = getLocalStorage("so-cart");
+  const dataId = element.getAttribute("data-id");
+  const newCartItems = cartItems.filter((item) => item.Id !== dataId);
+  localStorage.setItem("so-cart", JSON.stringify(newCartItems));
+  renderCartContents();
+  counterCart();
 }
 
 function renderTotalCart(cartItems) {
@@ -41,6 +58,7 @@ function cartItemTemplate(item) {
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: ${item.quantity}</p>
   <p class="cart-card__price">$${(item.FinalPrice * item.quantity).toFixed(2)}</p>
+  <span data-id="${item.Id}">X</span>
 </li>`;
 
   return newItem;
