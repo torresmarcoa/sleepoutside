@@ -1,36 +1,46 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
-function listElements(values) {
-    const excludedIds = ["989CG", "880RT"];
-    const filteredValues = values.filter(value => !excludedIds.includes(value.Id));
-
-    return filteredValues.map((value) =>`
-          <li class="product-card">
-            <a href="product_pages/?product=${value.Id}">
-              <img src="${value.Image}" alt="${value.NameWithoutBrand}" />
-              <h3 class="card__brand">${value.Brand.Name}</h3>
-              <h2 class="card__name">${value.Name}</h2>
-              <p class="product-card__price">$${value.FinalPrice}</p>
+function productCardTemplate(product) {
+  const {
+    Brand: { Name },
+    NameWithoutBrand,
+    Image,
+    FinalPrice,
+    Id,
+  } = product;
+  return `<li class="product-card">
+            <a href="product_pages/?product=${Id}">
+                <img src="${Image}"
+                alt="${NameWithoutBrand}" />
+                <h3 class="card__brand">${Name}</h3>
+                <h2 class="card__name">${NameWithoutBrand}</h2>
+                <p class="product-card__price">$${FinalPrice}</p>
             </a>
-          </li>
-        `).join("");
+            </li>
+    `;
 }
-  
+
 export default class ProductListing {
-    constructor(category, dataSource, listElement) {
-      this.category = category;
-      this.dataSource = dataSource;
-      this.listElement = listElement;
-      this.list = {};
-    }
-  
-    async init() {
-        this.list = await this.dataSource.getData();
-        this.renderProductList(this.listElement);
-    }
-  
-    renderProductList(parentElement) {
-      renderListWithTemplate(listElements, parentElement, this.list);
-    }
+  constructor(category, dataSource, listElement) {
+    this.dataSource = dataSource;
+    this.category = category;
+    this.listElement = listElement;
   }
-  
+
+  filterList(list) {
+    const tentsID = ["880RR", "985RF", "985PR", "344YJ"];
+
+    return list.filter((product) => tentsID.includes(product.Id));
+  }
+
+  async init() {
+    const list = await this.dataSource.getData();
+    const filterList = this.filterList(list)
+
+    this.renderList(filterList);
+  }
+
+  renderList(list) {
+    renderListWithTemplate(productCardTemplate, this.listElement, list)
+  }
+}
