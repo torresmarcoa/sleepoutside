@@ -135,9 +135,13 @@ button {
   right: -0.5rem;
   border-radius: 50%;
   font-size: 0.9rem;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+}
+
+.counter-cart.show {
+  display: flex;
 }
 
 /* End cart icon styles */
@@ -240,6 +244,12 @@ button {
   grid-column: 3;
 }
 
+.cart-card__removeButton {
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .cart-footer.hide {
   display: none;
 }
@@ -255,6 +265,7 @@ button {
   }
 
   .cart-card {
+    width: 100%;
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }

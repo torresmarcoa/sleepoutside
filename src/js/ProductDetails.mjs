@@ -1,4 +1,8 @@
-import { setLocalStorage, counterItems } from "./utils.mjs";
+import {
+  setLocalStorage,
+  renderCartLength,
+  getLocalStorage,
+} from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   const {
@@ -27,35 +31,35 @@ function productDetailsTemplate(product) {
     </div></section>`;
 }
 
-function counterCart(){
-  const items = counterItems("so-cart");
-  if (items > 0) {
-    document.querySelector("#counter-cart").innerText = items;
-  }
-}
-
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
-    this.product = [];
+    this.product = {};
     this.dataSource = dataSource;
   }
 
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails("main");
-    document
-    .getElementById("addToCart")
-    .addEventListener("click", () => {
+    document.getElementById("addToCart").addEventListener("click", () => {
       this.addToCart();
-      counterCart();
+      renderCartLength();
     });
   }
 
   addToCart() {
-    setLocalStorage("so-cart", this.product);
+    const cartItems = getLocalStorage("so-cart");
+    const itemIndex = cartItems.findIndex(
+      (cartItem) => cartItem.Id === this.product.Id,
+    );
+    if (itemIndex !== -1) {
+      cartItems[itemIndex].Quantity += 1;
+    } else {
+      cartItems.push({ ...this.product, Quantity: 1 });
+    }
+    setLocalStorage("so-cart", cartItems);
   }
-  
+
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     element.insertAdjacentHTML(
@@ -63,7 +67,6 @@ export default class ProductDetails {
       productDetailsTemplate(this.product),
     );
   }
-  
 }
 
-counterCart();
+renderCartLength();
