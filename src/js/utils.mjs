@@ -7,8 +7,7 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  const cart = localStorage.getItem(key);
-  return cart ? JSON.parse(cart) : [];
+  return JSON.parse(localStorage.getItem(key));
 }
 
 // save data to local storage
@@ -43,16 +42,15 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, elements.join(""));
 }
 
-export const counterCartLength = () => {
-  const cartItems = getLocalStorage("so-cart");
-  return cartItems.reduce(
+export const counterCartLength = (cartItems) =>
+  cartItems?.reduce(
     (cartLength, currentItem) => cartLength + currentItem.Quantity,
     0,
-  );
-};
+  ) ?? 0;
 
 export const renderCartLength = () => {
-  const cartLength = counterCartLength();
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartLength = counterCartLength(cartItems);
   const counterCartHTML = document.querySelector("#counter-cart");
   if (cartLength > 0) {
     counterCartHTML.textContent = cartLength;

@@ -26,8 +26,13 @@ function cartItemTemplate(item) {
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const cartListHTML = document.querySelector(".product-list");
-  renderListWithTemplate(cartItemTemplate, cartListHTML, cartItems);
-  addListenerRemoveButton();
+  if (cartItems === null) {
+    cartListHTML.innerHTML = "";
+    renderCartLength();
+  } else {
+    renderListWithTemplate(cartItemTemplate, cartListHTML, cartItems);
+    addListenerRemoveButton();
+  }
   renderTotalCart(cartItems);
 }
 
@@ -45,21 +50,20 @@ function addListenerRemoveButton() {
 function removeCartItem(id) {
   const cartItems = getLocalStorage("so-cart");
   const newCartItems = cartItems.filter((item) => item.Id !== id);
-  if (newCartItems.length === 0) {
-    localStorage.removeItem("so-cart");
-  } else {
-    setLocalStorage("so-cart", newCartItems);
-  }
+  newCartItems.length === 0
+    ? localStorage.removeItem("so-cart")
+    : setLocalStorage("so-cart", newCartItems);
   renderCartContents();
   renderCartLength();
 }
 
 function renderTotalCart(cartItems) {
-  const total = cartItems.reduce(
-    (totalCart, currentItem) =>
-      totalCart + currentItem.FinalPrice * currentItem.Quantity,
-    0,
-  );
+  const total =
+    cartItems?.reduce(
+      (totalCart, currentItem) =>
+        totalCart + currentItem.FinalPrice * currentItem.Quantity,
+      0,
+    ) ?? 0;
   const cartTotalHTML = document.querySelector(".cart-total");
   if (total === 0) {
     cartTotalHTML.innerHTML = "";

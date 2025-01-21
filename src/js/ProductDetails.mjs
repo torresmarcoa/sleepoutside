@@ -48,14 +48,18 @@ export default class ProductDetails {
   }
 
   addToCart() {
-    const cartItems = getLocalStorage("so-cart");
-    const itemIndex = cartItems.findIndex(
-      (cartItem) => cartItem.Id === this.product.Id,
-    );
-    if (itemIndex !== -1) {
-      cartItems[itemIndex].Quantity += 1;
-    } else {
+    const cartItems = getLocalStorage("so-cart") || [];
+    if (cartItems.length === 0) {
       cartItems.push({ ...this.product, Quantity: 1 });
+    } else {
+      const itemIndex = cartItems.findIndex(
+        (cartItem) => cartItem.Id === this.product.Id,
+      );
+      if (itemIndex !== -1) {
+        cartItems[itemIndex].Quantity += 1;
+      } else {
+        cartItems.push({ ...this.product, Quantity: 1 });
+      }
     }
     setLocalStorage("so-cart", cartItems);
   }
