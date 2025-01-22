@@ -172,6 +172,20 @@ button {
 }
 
 /* Styles for product lists */
+#productlist {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+#productlist img {
+  width: 100px; 
+  height: auto;
+}
+
 .product-card {
   flex: 1 1 45%;
   margin: 0.25em;
