@@ -25,6 +25,16 @@ export default class ProductListing {
     this.dataSource = dataSource;
     this.category = category;
     this.listElement = listElement;
+    this.sortOption = "name";
+  }
+
+  sortList(list) {
+    if (this.sortOption === "name") {
+      return list.sort((a, b) => a.NameWithoutBrand.localeCompare(b.NameWithoutBrand));
+    } else if (this.sortOption === "price") {
+      return list.sort((a, b) => a.FinalPrice - b.FinalPrice);
+    }
+    return list;
   }
 
   filterList(list) {
@@ -34,8 +44,15 @@ export default class ProductListing {
 
   async init() {
     const list = await this.dataSource.getData();
-    const filterList = this.filterList(list);
-    this.renderList(filterList);
+
+    const filteredList = this.filterList(list);
+    this.renderList(filteredList);
+
+    document.getElementById("sort-option").addEventListener("change", (e) => {
+      this.sortOption = e.target.value; 
+      const sortedList = this.sortList([...filteredList]); 
+      this.renderList(sortedList);
+    });
   }
 
   renderList(list) {
