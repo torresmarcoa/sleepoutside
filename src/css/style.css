@@ -156,6 +156,24 @@ button {
 
 .products {
   padding: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+}
+
+.products-section {
+  text-align: center;
+  text-decoration: none;
+}
+
+.products-section img {
+  width: 100%;
+  height: 80%;
+}
+
+.products-section p{
+  font-weight: 700;
+  font-size: 2rem;
+  color: #000;
 }
 
 .product-list {

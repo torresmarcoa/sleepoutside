@@ -6,9 +6,9 @@ import {
 
 function productDetailsTemplate(product) {
   const {
-    Brand: { Name },
+    Name,
     NameWithoutBrand,
-    Image,
+    Images : {PrimaryLarge},
     FinalPrice,
     Colors: [{ ColorName }],
     DescriptionHtmlSimple,
@@ -18,7 +18,7 @@ function productDetailsTemplate(product) {
     <h2 class="divider">${NameWithoutBrand}</h2>
     <img
       class="divider"
-      src="${Image}"
+      src="${PrimaryLarge}"
       alt="${NameWithoutBrand}"
     />
     <p class="product-card__price">$${FinalPrice}</p>
