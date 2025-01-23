@@ -42,6 +42,37 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, elements.join(""));
 }
 
+export function renderWithTemplate(
+  templateFn,
+  parentElement,
+  callback,
+  // data
+ 
+) {
+  parentElement.insertAdjacentHTML("afterbegin", templateFn); 
+  if(callback) {
+    callback()
+  }
+}
+
+export async function loadHeaderFooter () {
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerElement = document.getElementById("header");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.getElementById("footer");
+
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+}
+
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  const template = await response.text();
+  return template
+}
+
+
+
 export const counterCartLength = (cartItems) =>
   cartItems?.reduce(
     (cartLength, currentItem) => cartLength + currentItem.Quantity,
