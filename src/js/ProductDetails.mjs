@@ -2,6 +2,7 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
+  calculateDiscount
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
@@ -9,18 +10,19 @@ function productDetailsTemplate(product) {
     Brand: { Name },
     NameWithoutBrand,
     Image,
+    SuggestedRetailPrice,
     FinalPrice,
     Colors: [{ ColorName }],
     DescriptionHtmlSimple,
     Id,
   } = product;
+  let discount = calculateDiscount(SuggestedRetailPrice, FinalPrice);
   return `<section class="product-detail"> <h3>${Name}</h3>
     <h2 class="divider">${NameWithoutBrand}</h2>
-    <img
-      class="divider"
-      src="${Image}"
-      alt="${NameWithoutBrand}"
-    />
+    <div>
+      <img class="divider" src="${Image}" alt="${NameWithoutBrand}"/>
+      <div class="discount"><span>-${discount}%</span></div>
+    </div>
     <p class="product-card__price">$${FinalPrice}</p>
     <p class="product__color">${ColorName}</p>
     <p class="product__description">

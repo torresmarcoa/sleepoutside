@@ -90,3 +90,8 @@ export const renderCartLength = () => {
     counterCartHTML.classList.remove("show");
   }
 };
+
+export function calculateDiscount(originalPrice, finalPrice){
+  let finalPercent = Math.round((finalPrice * 100) / originalPrice);
+  return 100 - finalPercent;
+}
