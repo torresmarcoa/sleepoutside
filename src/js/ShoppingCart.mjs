@@ -4,20 +4,28 @@ import {   getLocalStorage,
     setLocalStorage } from "./utils.mjs";
 
 function cartItemTemplate(item) {
+  const {
+    Images: { PrimaryMedium },
+    Name,
+    Colors: [{ ColorName }],
+    Quantity,
+    FinalPrice,
+    Id
+  } = item;
   return `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
-      alt="${item.Name}"
+      src="${PrimaryMedium}"
+      alt="${Name}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
+    <h2 class="card__name">${Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">Quantity: ${item.Quantity}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <span class="cart-card__removeButton" data-removeId="${item.Id}">X</span>
+  <p class="cart-card__color">${ColorName}</p>
+  <p class="cart-card__quantity">Quantity: ${Quantity}</p>
+  <p class="cart-card__price">$${FinalPrice}</p>
+  <span class="cart-card__removeButton" data-removeId="${Id}">X</span>
 </li>`;
 };
 
