@@ -254,6 +254,22 @@ button {
   display: none;
 }
 
+.product-category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.category-img {
+  width: 100px;
+  height: auto;
+}
+.product-category a img:hover {
+  transform: scale(1.1);
+  transition: all;
+  transition-duration: 90ms;
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

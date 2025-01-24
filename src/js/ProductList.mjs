@@ -1,23 +1,15 @@
 import { renderListWithTemplate } from "./utils.mjs";
-
 function productCardTemplate(product) {
-  const {
-    Brand: { Name },
-    NameWithoutBrand,
-    Image,
-    FinalPrice,
-    Id,
-  } = product;
   return `<li class="product-card">
-            <a href="product_pages/?product=${Id}">
-                <img src="${Image}"
-                alt="${NameWithoutBrand}" />
-                <h3 class="card__brand">${Name}</h3>
-                <h2 class="card__name">${NameWithoutBrand}</h2>
-                <p class="product-card__price">$${FinalPrice}</p>
-            </a>
-            </li>
-    `;
+  <a href="/product_pages/index.html?product=${product.Id}">
+  <img
+    src="${product.Images.PrimaryMedium}"
+    alt="Image of ${product.Name}"
+  />
+  <h3 class="card__brand">${product.Brand.Name}</h3>
+  <h2 class="card__name">${product.Name}</h2>
+  <p class="product-card__price">$${product.FinalPrice}</p></a>
+</li>`;
 }
 
 export default class ProductListing {
@@ -28,12 +20,12 @@ export default class ProductListing {
   }
 
   filterList(list) {
-    const tentsID = ["880RR", "985RF", "985PR", "344YJ"];
-    return list.filter((product) => tentsID.includes(product.Id));
+    const maxProduct = 4;
+    return list.slice(0, maxProduct);
   }
 
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
     const filterList = this.filterList(list);
     this.renderList(filterList);
   }
