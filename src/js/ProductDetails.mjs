@@ -72,5 +72,3 @@ export default class ProductDetails {
     );
   }
 }
-
-renderCartLength();
