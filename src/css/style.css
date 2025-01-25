@@ -270,6 +270,13 @@ button {
   transition: all;
   transition-duration: 90ms;
 }
+
+.original-price {
+  text-decoration: line-through;
+}
+.discounted-price {
+  font-weight: 600;
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

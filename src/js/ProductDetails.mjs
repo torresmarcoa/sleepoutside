@@ -5,6 +5,11 @@ import {
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
+  const percentageDiscount = (
+    ((product.SuggestedRetailPrice - product.FinalPrice) /
+      product.SuggestedRetailPrice) *
+    100
+  ).toFixed(2);
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
@@ -12,7 +17,9 @@ function productDetailsTemplate(product) {
       src="${product.Images.PrimaryLarge}"
       alt="${product.NameWithoutBrand}"
     />
-     <p class="product-card__price">$${product.FinalPrice}</p>
+  <p class="product-card__price">Original Price: <span class="original-price">$${product.SuggestedRetailPrice}</span></p>
+<p class="product-card__price">Discounted Price: <span class="discounted-price">$${product.FinalPrice}</span> </p>
+<p class="product-card__price">Discount: <span>${percentageDiscount}% off!!</span> </p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
     <p class="product__description">
  ${product.DescriptionHtmlSimple}
