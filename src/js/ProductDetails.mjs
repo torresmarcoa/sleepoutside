@@ -2,16 +2,21 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
+  calculateDiscount
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
+  let discount = calculateDiscount(product.SuggestedRetailPrice, product.FinalPrice);
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
   <h2 class="divider">${product.NameWithoutBrand}</h2>
-  <img
-    class="divider"
-    src="${product.Images.PrimaryLarge}"
-    alt="${product.NameWithoutBrand}"
-  />
+  <div>
+    <img
+      class="divider"
+      src="${product.Images.PrimaryLarge}"
+      alt="${product.NameWithoutBrand}"
+    />
+    <div class="discount"><span>-${discount}%</span></div>
+  </div>
   <p class="product-card__price">$${product.FinalPrice}</p>
   <p class="product__color">${product.Colors[0].ColorName}</p>
   <p class="product__description">

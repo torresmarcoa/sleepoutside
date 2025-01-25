@@ -107,6 +107,23 @@ button {
 
 .divider {
   border-bottom: 2px solid var(--primary-color);
+  position: relative;
+}
+
+.discount {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 11rem;
+  right: 20rem;
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  rotate: -25deg;
 }
 
 /* End utility classes */
