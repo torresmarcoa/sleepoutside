@@ -282,7 +282,7 @@ button {
   grid-column: 3;
 }
 
-.cart-card__removeButton {
+.cart-card__button {
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
