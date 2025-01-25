@@ -18,16 +18,29 @@ export default class ProductListing {
     this.dataSource = dataSource;
     this.category = category;
     this.listElement = listElement;
+    this.sortOption = "name";
   }
 
- // filterList(list) {
- //   const tentsID = ["880RR", "985RF", "985PR", "344YJ"];
- //   return list.filter((product) => tentsID.includes(product.Id));
-// }
+  sortList(list) {
+    if (this.sortOption === "name") {
+      return list.sort((a, b) => a.Name.localeCompare(b.Name));
+    } else if (this.sortOption === "price") {
+      return list.sort((a, b) => a.FinalPrice - b.FinalPrice);
+    }
+    return list;
+  }
+
 
   async init() {
     const list = await this.dataSource.getData(this.category);
+  
     this.renderList(list);
+    document.getElementById("sort-option").addEventListener("change", (e) => {
+      this.sortOption = e.target.value; 
+      const sortedList = this.sortList([...list]); 
+      this.renderList(sortedList);
+    });
+
     document.querySelector(".title").innerHTML = this.category;
   }
 
