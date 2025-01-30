@@ -101,6 +101,7 @@ button {
   margin: auto;
   display: block;
   border: 0;
+  border-radius: 0.5rem;
   font-size: var(--large-font);
   cursor: pointer;
 }
@@ -290,6 +291,44 @@ button {
 
 .cart-footer.hide {
   display: none;
+}
+
+/* Checkout form styles */
+
+.checkout-form fieldset {
+  border-radius: 0.5rem;
+}
+
+.checkout-form fieldset label:nth-of-type(n + 2) {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.checkout-form label p {
+  margin-top: 0;
+}
+
+.checkout-form input {
+  display: block;
+  font-size: 1rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.checkout-form input:required {
+  border: 1px solid red;
+  border-radius: 3px;
+}
+
+.checkout-form input:valid {
+  border: 1px solid green;
+  border-radius: 3px;
+}
+
+.checkout__name {
+  margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 500px) {
