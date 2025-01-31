@@ -110,6 +110,9 @@ button {
   border-bottom: 2px solid var(--primary-color);
   position: relative;
 }
+.divider img {
+  padding: 1rem;
+}
 
 .discount {
   width: 4rem;
@@ -250,7 +253,6 @@ button {
   display: grid;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
-  /* max-height: 120px; */
   align-items: center;
 }
 
@@ -344,6 +346,46 @@ button {
   color: #28a745;
   font-size: 4rem;
   margin-bottom: 1rem;
+}
+.carousel {
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  margin: 0 auto;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  width: 100%;
+  flex: 0 0 100%;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  z-index: 10;
+}
+
+.prev {
+  left: 5px;
+}
+
+.next {
+  right: 5px;
 }
 
 @media screen and (min-width: 500px) {

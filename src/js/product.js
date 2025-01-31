@@ -7,4 +7,5 @@ const dataSource = new ExternalServices("tents");
 
 const product = new ProductDetails(productId, dataSource);
 product.init();
-loadHeaderFooter()
+
+loadHeaderFooter();
