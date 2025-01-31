@@ -95,3 +95,13 @@ export function calculateDiscount(originalPrice, finalPrice){
   let finalPercent = Math.round((finalPrice * 100) / originalPrice);
   return 100 - finalPercent;
 }
+
+
+export function alertCart(){
+  const cartIcon = document.querySelector("#cart-icon");
+  cartIcon.classList.add("shake");
+
+  setTimeout(() => {
+    cartIcon.classList.remove("shake");
+  }, 1000);
+}

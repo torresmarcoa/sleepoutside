@@ -1,7 +1,8 @@
 import {   getLocalStorage,
     renderCartLength,
     renderListWithTemplate,
-    setLocalStorage } from "./utils.mjs";
+    setLocalStorage,
+    alertCart } from "./utils.mjs";
 
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
@@ -65,6 +66,7 @@ export default class ShoppingCart {
             } else if (buttonType[1] === "removeButton") {
               this.removeCartItem(productId);
             }
+            alertCart();
           });
         }
       }
