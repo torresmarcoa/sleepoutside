@@ -207,7 +207,7 @@ button {
 }
 
 #productlist img {
-  width: 100px; 
+  width: 100px;
   height: auto;
 }
 
@@ -329,6 +329,43 @@ button {
 
 .checkout__name {
   margin-bottom: 2rem;
+}
+
+.alert {
+  border: 1px solid #000;
+  width: 100vh;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #efa969;
+  border-radius: .5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.alert div p {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: start;
+}
+
+#close {
+  border: 1px solid #000;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-radius: .3rem;
+  background-color: red;
+  color: #fff;
+}
+
+#close:hover {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) {

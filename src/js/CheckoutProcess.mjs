@@ -1,4 +1,4 @@
-import { getLocalStorage, renderWithTemplate } from "./utils.mjs";
+import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -53,12 +53,12 @@ export default class CheckoutProcess {
     this.outputSelector.querySelector("#num-items").textContent = numItems;
     this.outputSelector.querySelector("#cartTotal").textContent = `$${this.itemTotal}`;
     this.outputSelector.querySelector("#shipping").textContent = `$${this.shipping}`;
-    this.outputSelector.querySelector("#tax").textContent = `$${this.tax*100}%`;
+    this.outputSelector.querySelector("#tax").textContent = `$${this.tax * 100}%`;
   }
 
   calculateOrdertotal() {
     // calculate the shipping and tax amounts. Then use them to along with the cart total to figure out the order total
-    this.orderTotal = this.shipping + (this.itemTotal*this.tax) + this.itemTotal;
+    this.orderTotal = this.shipping + (this.itemTotal * this.tax) + this.itemTotal;
     // display the totals.
     this.displayOrderTotals();
   }
@@ -67,7 +67,7 @@ export default class CheckoutProcess {
     this.outputSelector.querySelector("#orderTotal").textContent = `$${this.orderTotal}`;
   }
 
-  async checkout(form) {
+  async checkout() {
     const formElement = document.forms["checkout"];
 
     const json = formDataToJSON(formElement);
@@ -77,12 +77,10 @@ export default class CheckoutProcess {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    console.log(json);
     try {
-      const res = await services.checkout(json);
-      console.log(res);
+      await services.checkout(json);
     } catch (err) {
-      console.log(err);
+      throw { name: "servicesError", message: err };
     }
   }
 }

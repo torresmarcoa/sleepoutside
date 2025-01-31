@@ -2,7 +2,8 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
-  calculateDiscount
+  calculateDiscount,
+  alertMessage
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
@@ -40,6 +41,8 @@ export default class ProductDetails {
     document.getElementById("addToCart").addEventListener("click", () => {
       this.addToCart();
       renderCartLength();
+      const message = `Product: ${this.product.Name} added succesfully`;
+      alertMessage(message);
     });
   }
 

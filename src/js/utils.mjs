@@ -15,6 +15,10 @@ export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+export function clearLocalStorage(key) {
+  localStorage.removeItem(key);
+}
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -95,3 +99,32 @@ export function calculateDiscount(originalPrice, finalPrice){
   let finalPercent = Math.round((finalPrice * 100) / originalPrice);
   return 100 - finalPercent;
 }
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  
+  alert.innerHTML = `
+    <div><p>${message}</p></div>
+    <div id="close">X</div>
+  `;
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  const closeButton = alert.querySelector("#close");
+  
+  closeButton.addEventListener("click", function() {
+    alert.remove();
+  });
+
+  setTimeout(() => {
+    alert.remove();
+  }, 5000);
+
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
+
+
