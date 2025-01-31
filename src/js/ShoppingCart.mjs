@@ -3,7 +3,8 @@ import {
   getLocalStorage,
   renderCartLength,
   renderListWithTemplate,
-  setLocalStorage
+  setLocalStorage,
+  alertCart
 } from "./utils.mjs";
 
 function cartItemTemplate(item) {
@@ -73,6 +74,7 @@ export default class ShoppingCart {
           } else if (buttonType[1] === "removeButton") {
             this.removeCartItem(productId);
           }
+          alertCart();
         });
       }
     }
