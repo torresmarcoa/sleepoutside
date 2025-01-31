@@ -44,12 +44,8 @@ export default class ProductDetails {
       renderCartLength();
       addCartButton.innerHTML = `Product added &#10003`;
       alertCart();
-      setTimeout(() => {
-        addCartButton.innerHTML = `Add to Cart`;
-      }, 1000);
+      setTimeout(() => addCartButton.innerHTML = `Add to Cart`, 1000);
     });
-
-    
   }
 
   addToCart() {
