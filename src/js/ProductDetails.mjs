@@ -2,7 +2,9 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
-  calculateDiscount
+  calculateDiscount,
+  alertMessage,
+  removeAllAlerts
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
@@ -58,6 +60,8 @@ export default class ProductDetails {
       }
     }
     setLocalStorage("so-cart", cartItems);
+    removeAllAlerts();
+    alertMessage("Item added to cart");
   }
 
   renderProductDetails(selector) {
