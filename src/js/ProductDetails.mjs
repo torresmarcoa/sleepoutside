@@ -3,31 +3,50 @@ import {
   renderCartLength,
   getLocalStorage,
   calculateDiscount,
-  alertCart
+  alertCart,
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
-  let discount = calculateDiscount(product.SuggestedRetailPrice, product.FinalPrice);
-  return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
-  <h2 class="divider">${product.NameWithoutBrand}</h2>
-  <div>
-    <img
-      class="divider"
-      src="${product.Images.PrimaryLarge}"
-      alt="${product.NameWithoutBrand}"
-    />
-    <div class="discount"><span>-${discount}%</span></div>
-  </div>
-  <p class="product-card__price">$${product.FinalPrice}</p>
-  <p class="product__color">${product.Colors[0].ColorName}</p>
-  <p class="product__description">
-  ${product.DescriptionHtmlSimple}
-  </p>
-  <div class="product-detail__add">
-    <button id="addToCart" class="button" data-id="${product.Id}">Add to Cart</button>
-  </div></section>`;
-}
+  console.log(product);
+  let discount = calculateDiscount(
+    product.SuggestedRetailPrice,
+    product.FinalPrice,
+  );
+  let carousel = product.Images.ExtraImages;
+  console.log(carousel);
 
+  return `<section class="product-detail"> 
+    <h3>${product.Brand.Name}</h3>
+    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    <div>
+      ${
+        carousel.length > 0
+          ? `<div class="carousel">
+              <button class="prev">&#10094;</button>
+              <div class="carousel-track">
+                ${carousel
+                  .map(
+                    (item) => `
+                  <div class="discount"><span>-${discount}%</span></div>
+                  <img class="carousel-item" src="${item.Src}" alt="img" />
+                `,
+                  )
+                  .join("")}
+              </div>
+              <button class="next">&#10095;</button>
+            </div>`
+          : `<img class="divider" src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}" />
+             <div class="discount"><span>-${discount}%</span></div>`
+      }
+    </div>
+    <p class="product-card__price">$${product.FinalPrice}</p>
+    <p class="product__color">${product.Colors[0].ColorName}</p>
+    <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <div class="product-detail__add">
+      <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    </div>
+  </section>`;
+}
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -44,12 +63,10 @@ export default class ProductDetails {
       renderCartLength();
       addCartButton.innerHTML = `Product added &#10003`;
       alertCart();
-      setTimeout(() => addCartButton.innerHTML = `Add to Cart`, 1000);
+      setTimeout(() => (addCartButton.innerHTML = `Add to Cart`), 1000);
     });
 
-    this.
-    
-    Carousel();
+    this.setupCarousel();
   }
 
   addToCart() {
