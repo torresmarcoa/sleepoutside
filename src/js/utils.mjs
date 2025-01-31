@@ -15,6 +15,10 @@ export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+export function clearLocalStorage(key) {
+  localStorage.removeItem(key);
+}
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -46,11 +50,10 @@ export function renderWithTemplate(
   templateFn,
   parentElement,
   callback,
-  // data
 ) {
   parentElement.insertAdjacentHTML("afterbegin", templateFn);
   if (callback) {
-    callback();
+    callback()
   }
 }
 
@@ -66,8 +69,7 @@ export async function loadHeaderFooter() {
 
 export async function loadTemplate(path) {
   const response = await fetch(path);
-  const template = await response.text();
-  return template;
+  return await response.text();
 }
 
 export const counterCartLength = (cartItems) =>
@@ -88,36 +90,26 @@ export const renderCartLength = () => {
   }
 };
 
-export function calculateDiscount(originalPrice, finalPrice) {
-  let finalPercent = Math.round((finalPrice * 100) / originalPrice);
-  return 100 - finalPercent;
-}
+export const calculateDiscount = (originalPrice, finalPrice) => 100 - (Math.round((finalPrice * 100) / originalPrice))
 
-export function showAlertMessage(message, scroll = false) {
-  const alertBox = document.createElement("div");
-  alertBox.classList.add("alert");
-
-  alertBox.style.border = "1px solid orange";
-  alertBox.style.backgroundColor = "orange";
-  alertBox.style.padding = "10px";
-  alertBox.style.marginBottom = "10px";
-  alertBox.style.color = "white";
-
-  alertBox.innerHTML = `<span>X</span>`;
-  const alertMessage = document.createElement("p");
-  alertMessage.textContent = message;
-  alertBox.addEventListener("click", function (e) {
-    if (e.target.tagName == "SPAN") {
-      main.removeChild(this);
-    }
-  });
-  alertBox.appendChild(alertMessage);
-
-  const main = document.querySelector("main");
-  main.prepend(alertBox);
-
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `${message} <span class="close">X</span>`;
+  alert.addEventListener('click', function (e) {
+    e.target.tagName === 'SPAN' && main.removeChild(this);
+  })
+  const main = document.querySelector('main');
+  main.prepend(alert);
   if (scroll) window.scrollTo(0, 0);
 }
+
+export function alertCart(){
+  const cartIcon = document.querySelector("#cart-icon");
+  cartIcon.classList.add("shake");
+  setTimeout(() => cartIcon.classList.remove("shake"), 1000);
+}
+
 export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));

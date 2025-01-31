@@ -1,17 +1,16 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 async function convertToJson(res) {
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw { name: "servicesError", message: data };
+  const jsonResponse = await res.json();
+  if (res.ok) {
+    return jsonResponse;
   } else {
-    return data;
+    throw { name: 'servicesError', message: jsonResponse };
   }
 }
 
 export default class ExternalServices {
-  constructor(category) {}
+  constructor() { }
   async getData(category) {
     const response = await fetch(baseURL + `products/search/${category}`);
     const data = await convertToJson(response);
