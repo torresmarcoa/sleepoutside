@@ -82,11 +82,11 @@ export const counterCartLength = (cartItems) =>
 export const renderCartLength = () => {
   const cartItems = getLocalStorage("so-cart") || [];
   const cartLength = counterCartLength(cartItems);
-  const counterCartHTML = document.querySelector("#counter-cart");
+  const counterCartHTML = document.querySelector("#counter-cart") || null;
   if (cartLength > 0) {
     counterCartHTML.textContent = cartLength;
     counterCartHTML.classList.add("show");
-  } else {
+  } else if (counterCartHTML !== null) {
     counterCartHTML.classList.remove("show");
   }
 };
@@ -94,4 +94,25 @@ export const renderCartLength = () => {
 export function calculateDiscount(originalPrice, finalPrice){
   let finalPercent = Math.round((finalPrice * 100) / originalPrice);
   return 100 - finalPercent;
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  alert.classList.add("alert");
+  alert.addEventListener("click", function(e) {
+    if(e.target.tagName === "SPAN") {
+      main.removeChild(this);
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if(scroll) window.scrollTo(0,0);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }

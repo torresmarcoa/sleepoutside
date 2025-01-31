@@ -1,4 +1,4 @@
-import { getLocalStorage, renderWithTemplate } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -81,7 +81,14 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
     } catch (err) {
+      removeAllAlerts();
+      const errorMessages = await err.message;
+      for (const message in errorMessages) {
+        alertMessage(errorMessages[message]);
+      }
       console.log(err);
     }
   }

@@ -79,9 +79,7 @@ export default class ShoppingCart {
       } else if (operation === "add") {
         cartItems[itemIndex].Quantity += 1;
       }
-      cartItems.length === 0
-        ? localStorage.removeItem("so-cart")
-        : setLocalStorage("so-cart", cartItems);
+      setLocalStorage("so-cart", cartItems);
       this.renderCartContents();
       renderCartLength();
     }
