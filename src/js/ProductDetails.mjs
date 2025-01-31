@@ -23,7 +23,7 @@ function productDetailsTemplate(product) {
   ${product.DescriptionHtmlSimple}
   </p>
   <div class="product-detail__add">
-    <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    <button id="addToCart" class="button" data-id="${product.Id}">Add to Cart</button>
   </div></section>`;
 }
 

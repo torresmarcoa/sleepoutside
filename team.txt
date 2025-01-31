@@ -1,6 +1,11 @@
-https://trello.com/b/HCtSbyfp/wdd-330-team-20-sleep-outside
-Marco Antonio Torres
-Esteban Luis Zarate
-Iris Karina Ayala
+Trello: https://trello.com/b/HCtSbyfp/wdd-330-team-20-sleep-outside
+Github: https://github.com/torresmarcoa/sleepoutside
+Netlify: https://enchanting-bunny-ce585b.netlify.app/
+
+Diego Miguel Bellido Ochoa
+Emanuel Munoz Torigino
 Eric Ian Martinez Cazenave
+Esteban Luis Zarate
+Ivan Maximiliano Leffalle
 Jose Angel Arteaga
+Marco Antonio Torres
