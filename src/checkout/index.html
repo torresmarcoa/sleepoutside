@@ -14,12 +14,11 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
         <section class="checkout-form">
-          <form name="checkout">
+          <form name="checkout" id="form">
             <fieldset>
               <legend>Shipping</legend>
               <div class="checkout__name">
-                <label for="fname"
-                  >First Name:
+                <label for="fname">First Name:
                   <input
                     type="text"
                     name="fname"
@@ -41,8 +40,7 @@
                 </label>
               </div>
               <div class="checkout__address">
-                <label for="street"
-                  >Street:
+                <label for="street">Street:
                   <input
                     type="text"
                     name="street"
@@ -85,8 +83,7 @@
             </fieldset>
             <fieldset>
               <legend>Payment</legend>
-              <label for="cardNumber"
-                >Card Number:
+              <label for="cardNumber">Card Number:
                 <input
                   type="text"
                   name="cardNumber"
@@ -114,8 +111,7 @@
               <legend>Order Summary</legend>
               <ul>
                 <li>
-                  <label for="cartTotal"
-                    >Item Subtotal(<span id="num-items"></span>):
+                  <label for="cartTotal">Item Subtotal(<span id="num-items"></span>):
                     <p name="cartTotal" id="cartTotal"></p>
                   </label>
                 </li>
