@@ -100,8 +100,5 @@ export function calculateDiscount(originalPrice, finalPrice){
 export function alertCart(){
   const cartIcon = document.querySelector("#cart-icon");
   cartIcon.classList.add("shake");
-
-  setTimeout(() => {
-    cartIcon.classList.remove("shake");
-  }, 1000);
+  setTimeout(() => cartIcon.classList.remove("shake"), 1000);
 }
