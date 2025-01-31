@@ -22,26 +22,16 @@ export default class ProductListing {
     this.sortOption = "name";
   }
 
-  sortList(list) {
-    if (this.sortOption === "name") {
-      return list.sort((a, b) => a.Name.localeCompare(b.Name));
-    } else if (this.sortOption === "price") {
-      return list.sort((a, b) => a.FinalPrice - b.FinalPrice);
-    }
-    return list;
-  }
-
+  sortList = (list) => this.sortOption === "name" ? list.sort((a, b) => a.Name.localeCompare(b.Name)) : list.sort((a, b) => a.FinalPrice - b.FinalPrice);
 
   async init() {
     const list = await this.dataSource.getData(this.category);
-  
     this.renderList(list);
     document.getElementById("sort-option").addEventListener("change", (e) => {
-      this.sortOption = e.target.value; 
-      const sortedList = this.sortList([...list]); 
+      this.sortOption = e.target.value;
+      const sortedList = this.sortList([...list]);
       this.renderList(sortedList);
     });
-
     document.querySelector(".title").innerHTML = this.category;
   }
 
