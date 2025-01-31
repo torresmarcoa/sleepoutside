@@ -20,15 +20,15 @@ function cartItemTemplate(item) {
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">
     <button class="cart-card__button minusButton" data-removeId="${item.Id}" data-change="minus">
-      <img src="../public/images/minus.svg" alt="Minus Icon" />
+      <img src="/images/minus.svg" alt="Minus Icon" />
     </button>
        <span class="cart-cart-quantity__number">${item.Quantity}</span>
     <button class="cart-card__button addButton" data-removeId="${item.Id}" data-change="add">
-      <img src="../public/images/add.svg" alt="Add Icon" />
+      <img src="/images/add.svg" alt="Add Icon" />
     </button></p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button class="cart-card__delete removeButton" class="removeButton" data-removeId="${item.Id}">
-    <img src="../public/images/delete.svg" alt="Delete Icon" />
+    <img src="/images/delete.svg" alt="Delete Icon" />
   </button>
 </li>`;
 };
