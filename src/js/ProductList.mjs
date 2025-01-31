@@ -37,7 +37,6 @@ export default class ProductListing {
 
   renderList(list) {
     renderListWithTemplate(productCardTemplate, this.listElement, list);
-
     document.querySelectorAll(".view-details").forEach(button => {
       button.addEventListener("click", async (event) => {
         const productId = event.target.dataset.id;
@@ -54,12 +53,8 @@ export default class ProductListing {
     document.getElementById("modal-name").textContent = product.Name;
     document.getElementById("modal-price").textContent = `$${product.FinalPrice}`;
     document.getElementById("modal-description").innerHTML = product.DescriptionHtmlSimple || "No description available";
-  
     document.getElementById("product-modal").style.display = "block";
-  
-    document.querySelector(".close").addEventListener("click", () => {
-      document.getElementById("product-modal").style.display = "none";
-    });
+    document.querySelector(".close").addEventListener("click", () => document.getElementById("product-modal").style.display = "none"});
   
     window.addEventListener("click", (event) => {
       if (event.target === document.getElementById("product-modal")) {
