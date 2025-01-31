@@ -11,7 +11,12 @@ document.querySelector("#zip").addEventListener("blur", checkout.calculateOrdert
 
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
     e.preventDefault();
-
-    checkout.checkout();
+    const checkForm = document.forms[0];
+    const validityCheck = checkForm.checkValidity()
+    checkForm.reportValidity();
+    
+    if(validityCheck) {
+        checkout.checkout();
+    }
 });
 checkout.calculateOrdertotal();

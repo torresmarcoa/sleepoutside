@@ -47,15 +47,14 @@ export function renderWithTemplate(
   parentElement,
   callback,
   // data
- 
 ) {
-  parentElement.insertAdjacentHTML("afterbegin", templateFn); 
-  if(callback) {
-    callback()
+  parentElement.insertAdjacentHTML("afterbegin", templateFn);
+  if (callback) {
+    callback();
   }
 }
 
-export async function loadHeaderFooter () {
+export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate("../partials/header.html");
   const headerElement = document.getElementById("header");
   const footerTemplate = await loadTemplate("../partials/footer.html");
@@ -68,10 +67,8 @@ export async function loadHeaderFooter () {
 export async function loadTemplate(path) {
   const response = await fetch(path);
   const template = await response.text();
-  return template
+  return template;
 }
-
-
 
 export const counterCartLength = (cartItems) =>
   cartItems?.reduce(
@@ -91,7 +88,30 @@ export const renderCartLength = () => {
   }
 };
 
-export function calculateDiscount(originalPrice, finalPrice){
+export function calculateDiscount(originalPrice, finalPrice) {
   let finalPercent = Math.round((finalPrice * 100) / originalPrice);
   return 100 - finalPercent;
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) window.scrollTo(0, 0);
+  
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
