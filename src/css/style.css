@@ -207,7 +207,7 @@ button {
 }
 
 #productlist img {
-  width: 100px; 
+  width: 100px;
   height: auto;
 }
 
@@ -329,6 +329,21 @@ button {
 
 .checkout__name {
   margin-bottom: 2rem;
+}
+.success-container {
+  text-align: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+  margin-top: 3rem;
+}
+.success-icon {
+  color: #28a745;
+  font-size: 4rem;
+  margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 500px) {

@@ -2,11 +2,15 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
-  calculateDiscount
+  calculateDiscount,
+  showAlertMessage,
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
-  let discount = calculateDiscount(product.SuggestedRetailPrice, product.FinalPrice);
+  let discount = calculateDiscount(
+    product.SuggestedRetailPrice,
+    product.FinalPrice,
+  );
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
   <h2 class="divider">${product.NameWithoutBrand}</h2>
   <div>
@@ -47,6 +51,7 @@ export default class ProductDetails {
     const cartItems = getLocalStorage("so-cart") || [];
     if (cartItems.length === 0) {
       cartItems.push({ ...this.product, Quantity: 1 });
+      showAlertMessage("Producto agregado al carrito", true);
     } else {
       const itemIndex = cartItems.findIndex(
         (cartItem) => cartItem.Id === this.product.Id,
