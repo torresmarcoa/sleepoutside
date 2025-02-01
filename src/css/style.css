@@ -98,7 +98,7 @@ header {
 
 .button {
   display: block;
-  margin: 1rem auto 0.5rem;
+  margin-inline: auto;
   border: 1px solid transparent;
   padding: 0.5rem 2rem;
   background-color: var(--secondary-color);
@@ -411,6 +411,10 @@ header {
 }
 
 /* Checkout form styles */
+.checkout-form {
+  margin-bottom: 0.5rem;
+}
+
 .checkout-form fieldset {
   border-radius: 0.5rem;
 }
@@ -441,6 +445,10 @@ header {
 .checkout-form input:valid {
   border: 1px solid green;
   border-radius: 3px;
+}
+
+.checkout-summary {
+  margin-bottom: 1rem;
 }
 
 .checkout__name {
