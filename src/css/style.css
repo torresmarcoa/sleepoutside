@@ -245,6 +245,37 @@ button {
   width: 100%;
 }
 
+.color-swatch {
+  display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 2px solid var(--secondary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.color-swatch.active {
+  border: 2px solid var(--primary-color);
+}
+
+.color-swatch:nth-of-type(n + 2) {
+  margin-left: 0.5rem;
+}
+
+.color-swatch img {
+  display: block;
+  max-width: 50px;
+}
+
+.color-text {
+  margin: 0 0 0.5rem 0;
+}
+
+.color-prev img {
+  display: block;
+  max-width: 150px;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
