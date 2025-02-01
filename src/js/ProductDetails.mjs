@@ -10,13 +10,13 @@ function productDetailsTemplate(product) {
   let discount = calculateDiscount(product.SuggestedRetailPrice, product.FinalPrice);
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
-    <div>
+    <div class="product-detail__images">
       <img
         class="divider"
         src="${product.Images.PrimaryLarge}"
         alt="${product.NameWithoutBrand}"
       />
-      <div class="discount"><span>-${discount}%</span></div>
+      <span class="product-detail__discount">-${discount}%</span>
     </div>
     <p class="product-card__price">$${product.FinalPrice}</p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
