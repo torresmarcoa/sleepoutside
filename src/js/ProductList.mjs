@@ -66,6 +66,7 @@ export default class ProductListing {
     document.body.insertAdjacentHTML("beforebegin", renderProductDetails(product));
     document.addEventListener("click", e => {
       if (e.target.classList.contains("product-modal__close") || e.target.classList.contains("product-modal")) {
+        e.stopImmediatePropagation();
         document.getElementById("product-modal").remove();
       }
     });
