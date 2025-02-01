@@ -1,4 +1,4 @@
-import { clearLocalStorage, getLocalStorage, alertMessage, removeAllAlerts, renderWithTemplate } from "./utils.mjs";
+import { clearLocalStorage, getLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
