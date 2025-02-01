@@ -50,14 +50,26 @@ export default class ProductDetails {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails("main");
     const addCartButton = document.querySelector("#addToCart");
-    addCartButton.addEventListener("click", () => {
-      this.addToCart();
-      renderCartLength();
-      addCartButton.innerHTML = `Product added &#10003`;
-      alertCart();
-      setTimeout(() => (addCartButton.innerHTML = `Add to Cart`), 1000);
+    this.addClickEventListener(addCartButton, this.addToCart, renderCartLength);
+    this.renderColorSwatchs(".product__colors");
+    const colorSwatchElements = document.querySelectorAll(".color-swatch");
+    colorSwatchElements.forEach(element => {
+      this.addClickEventListener(element, this.renderSelectedColor, undefined, element.id);
     });
+    colorSwatchElements[0].classList.add("active");
     this.setupCarousel();
+  }
+
+  addClickEventListener(element, fn, callback, extraData) {
+    element.addEventListener("click", () => {
+      fn(this.product, extraData);
+      if (callback) {
+        callback();
+        element.innerHTML = `Product added &#10003`;
+        alertCart();
+        setTimeout(() => (element.innerHTML = `Add to Cart`), 1000);
+      }
+    });
   }
 
   addToCart(product) {
