@@ -8,11 +8,11 @@ function productCardTemplate(product) {
         src="${product.Images.PrimaryMedium}"
         alt="Image of ${product.Name}"
       />
-      <h3 class="card__brand">${product.Brand.Name}</h3>
-      <h2 class="card__name">${product.Name}</h2>
+      <h3 class="product-card__brand">${product.Brand.Name}</h3>
+      <h2 class="product-card__name">${product.Name}</h2>
       <p class="product-card__price">$${product.FinalPrice}</p>
     </a>
-    <button class="view-details button" data-id="${product.Id}">View Details</button>
+    <button class="product-card__view-details button" data-id="${product.Id}">View Details</button>
   </li>`;
 }
 
@@ -53,7 +53,7 @@ export default class ProductListing {
 
   renderList(list) {
     renderListWithTemplate(productCardTemplate, this.listElement, list);
-    document.querySelectorAll(".view-details").forEach(button => {
+    document.querySelectorAll(".product-card__view-details").forEach(button => {
       button.addEventListener("click", event => {
         const productId = event.target.dataset.id;
         const product = list.find(product => product.Id == productId);
