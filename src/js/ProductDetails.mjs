@@ -2,29 +2,31 @@ import {
   setLocalStorage,
   renderCartLength,
   getLocalStorage,
-  calculateDiscount
+  calculateDiscount,
+  alertCart,
 } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   let discount = calculateDiscount(product.SuggestedRetailPrice, product.FinalPrice);
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
-  <h2 class="divider">${product.NameWithoutBrand}</h2>
-  <div>
-    <img
-      class="divider"
-      src="${product.Images.PrimaryLarge}"
-      alt="${product.NameWithoutBrand}"
-    />
-    <div class="discount"><span>-${discount}%</span></div>
-  </div>
-  <p class="product-card__price">$${product.FinalPrice}</p>
-  <div class="product__colors"></div>
-  <p class="product__description">
-  ${product.DescriptionHtmlSimple}
-  </p>
-  <div class="product-detail__add">
-    <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-  </div></section>`;
+    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    <div class="product-detail__images">
+      <img
+        class="divider"
+        src="${product.Images.PrimaryLarge}"
+        alt="${product.NameWithoutBrand}"
+      />
+      <span class="product-detail__discount">-${discount}%</span>
+    </div>
+    <p class="product-card__price">$${product.FinalPrice}</p>
+    <div class="product__colors"></div>
+    <p class="product__description">
+    ${product.DescriptionHtmlSimple}
+    </p>
+    <div class="product-detail__add">
+      <button id="addToCart" class="button" data-id="${product.Id}">Add to Cart</button>
+    </div>
+  </section>`;
 }
 
 function colorSwatchesTemplate(product) {
@@ -47,20 +49,15 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails("main");
-    this.addClickEventListener(document.getElementById("addToCart"), this.addToCart, renderCartLength);
-    this.renderColorSwatchs(".product__colors");
-    const colorSwatchElements = document.querySelectorAll(".color-swatch");
-    colorSwatchElements.forEach(element => {
-      this.addClickEventListener(element, this.renderSelectedColor, undefined, element.id);
+    const addCartButton = document.querySelector("#addToCart");
+    addCartButton.addEventListener("click", () => {
+      this.addToCart();
+      renderCartLength();
+      addCartButton.innerHTML = `Product added &#10003`;
+      alertCart();
+      setTimeout(() => (addCartButton.innerHTML = `Add to Cart`), 1000);
     });
-    colorSwatchElements[0].classList.add("active");
-  }
-
-  addClickEventListener(element, fn, callback, extraData) {
-    element.addEventListener("click", () => {
-      fn(this.product, extraData);
-      if (callback) callback();
-    });
+    this.setupCarousel();
   }
 
   addToCart(product) {
@@ -87,6 +84,31 @@ export default class ProductDetails {
       "afterBegin",
       productDetailsTemplate(this.product),
     );
+  }
+
+  setupCarousel() {
+    const track = document.querySelector(".carousel-track");
+    const items = document.querySelectorAll(".carousel-item");
+    const prevButton = document.querySelector(".prev");
+    const nextButton = document.querySelector(".next");
+
+    if (!track || items.length === 0 || !prevButton || !nextButton) return;
+
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevButton.addEventListener("click", () => {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+      updateCarousel();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+      updateCarousel();
+    });
   }
 
   renderColorSwatchs(selector) {
