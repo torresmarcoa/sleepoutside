@@ -440,8 +440,6 @@ header {
   text-align: center;
   background-color: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   margin: auto;
   margin-top: 3rem;
@@ -569,19 +567,15 @@ footer {
   0% {
     transform: rotate(0);
   }
-
   25% {
     transform: rotate(-10deg);
   }
-
   50% {
     transform: rotate(10deg);
   }
-
   75% {
     transform: rotate(-5deg);
   }
-
   100% {
     transform: rotate(0);
   }
