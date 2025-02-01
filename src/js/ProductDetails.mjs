@@ -51,12 +51,16 @@ export default class ProductDetails {
     this.renderProductDetails("main");
     const addCartButton = document.querySelector("#addToCart");
     this.addClickEventListener(addCartButton, this.addToCart, renderCartLength);
-    this.renderColorSwatchs(".product__colors");
-    const colorSwatchElements = document.querySelectorAll(".color-swatch");
-    colorSwatchElements.forEach(element => {
-      this.addClickEventListener(element, this.renderSelectedColor, undefined, element.id);
-    });
-    colorSwatchElements[0].classList.add("active");
+    if (this.product.Colors.length > 1) {
+      this.renderColorSwatchs(".product__colors");
+      const colorSwatchElements = document.querySelectorAll(".color-swatch");
+      colorSwatchElements.forEach(element => {
+        this.addClickEventListener(element, this.renderSelectedColor, undefined, element.id);
+      });
+      colorSwatchElements[0].classList.add("active");
+    } else {
+      document.querySelector(".product__colors").textContent = this.product.Colors[0].ColorName;
+    }
     this.setupCarousel();
   }
 
